@@ -1,3 +1,10 @@
+const structuredClone = <A, B>(x: Bi<A, B>) => {
+    return {
+        a2b: new Map(Array.from(x.a2b).map(([a, bs]) => [a, [...bs]])),
+        b2a: new Map(Array.from(x.b2a).map(([a, bs]) => [a, [...bs]])),
+    }
+}
+
 interface BiInterface<A, B> {
     a2b: Map<A, B[]>
     b2a: Map<B, A[]>
@@ -58,7 +65,10 @@ const solve = <A, B>(bi: Bi<A, B>, length = 0): number[] => {
     const [head, ..._tail] = bi.a2b
     // console.log(length, bi)
     if (!head) return [length]
-    if (!head[1].length) return [length]
+    if (!head[1].length) return solve(
+        bi.delA(head[0]),
+        length,
+    )
     return head[1].flatMap(b =>
         solve(
             bi
@@ -73,11 +83,13 @@ const main = (input: string) =>
     solve(Bi.fromNodes(
         input
             .split("\n")
+            .slice(1)
             .map(x => x.split(" ").map(Number) as [number, number]))
     )
     .reduce((prev, curr) => prev > curr ? prev : curr)
 
-console.log(main(
+const input = 
+// require("fs").readFileSync(0).toString();
 `5 13
 1 2
 1 3
@@ -91,4 +103,6 @@ console.log(main(
 5 2
 5 3
 5 4
-5 5`))
+5 5`
+
+console.log(main(input))
