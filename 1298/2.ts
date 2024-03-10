@@ -52,6 +52,10 @@ class Bi<A, B> {
         result.b2a.delete(b)
         return result
     }
+    sort() {
+        this.a2b = new Map(Array.from(this.a2b).sort((a, b) => a[1].length - b[1].length))
+        return this
+    }
 
     static fromNodes<A, B>(nodes: [A, B][]) {
         const bi = new Bi<A, B>
@@ -80,11 +84,13 @@ const solve = <A, B>(bi: Bi<A, B>, length = 0): number[] => {
 }
 
 const main = (input: string) =>
-    solve(Bi.fromNodes(
-        input
-            .split("\n")
-            .slice(1)
-            .map(x => x.split(" ").map(Number) as [number, number]))
+    solve(
+        Bi.fromNodes(
+            input
+                .split("\n")
+                .slice(1)
+                .map(x => x.split(" ").map(Number) as [number, number])
+        ).sort()
     )
     .reduce((prev, curr) => prev > curr ? prev : curr)
 
