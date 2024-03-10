@@ -19,7 +19,23 @@ const solve =
     ]
 }
 
-console.log(solve(
+const preTrav = (tree: BiTree<number>): number[] => {
+    if (!Array.isArray(tree)) return [tree]
+    const [left, root, right] = tree
+    return [root, ...preTrav(left), ...preTrav(right)]
+}
+
+const main = (input: string) => {
+    const [inOrder, postOrder] = input.split("\n").slice(1).map(x => x.split(" ").map(Number))
+    return preTrav(solve(inOrder, postOrder)).join(" ")
+}
+
+/*
+const result = solve(
     [1, 3, 4, 5, 6, 7, 12, 15, 16],
     [1, 4, 6, 5, 3, 12, 16, 15, 7],
-))
+)
+console.log(preTrav(result))
+*/
+
+console.log(main(require("fs").readFileSync(0).toString()))
