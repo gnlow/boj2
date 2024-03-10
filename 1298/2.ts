@@ -54,16 +54,9 @@ class Bi<A, B> {
     }
 }
 
-const bi = Bi.fromNodes([
-    [1, 2],
-    [1, 3],
-    [2, 2],
-    [3, 1],
-])
-
 const solve = <A, B>(bi: Bi<A, B>, length = 0): number[] => {
-    const [head, ...tail] = bi.a2b
-    console.log(length, bi)
+    const [head, ..._tail] = bi.a2b
+    // console.log(length, bi)
     if (!head) return [length]
     if (!head[1].length) return [length]
     return head[1].flatMap(b =>
@@ -76,8 +69,26 @@ const solve = <A, B>(bi: Bi<A, B>, length = 0): number[] => {
     )
 }
 
-console.log(
-    //bi,
-    //bi.delA(1),
-)
-console.log(solve(bi))
+const main = (input: string) =>
+    solve(Bi.fromNodes(
+        input
+            .split("\n")
+            .map(x => x.split(" ").map(Number) as [number, number]))
+    )
+    .reduce((prev, curr) => prev > curr ? prev : curr)
+
+console.log(main(
+`5 13
+1 2
+1 3
+2 2
+2 3
+3 1
+3 2
+4 1
+4 2
+5 1
+5 2
+5 3
+5 4
+5 5`))
