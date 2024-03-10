@@ -23,7 +23,7 @@ class Bi<A, B> {
             ?.push(a)
     }
     clone() {
-        return new Bi(structuredClone(this))
+        return new Bi(structuredClone(this)) as Bi<A, B>
     }
     delA(a: A) {
         const result = this.clone()
@@ -47,7 +47,7 @@ class Bi<A, B> {
     }
 
     static fromNodes<A, B>(nodes: [A, B][]) {
-        const bi = new Bi
+        const bi = new Bi<A, B>
         nodes.forEach(node => bi.addNode(node))
 
         return bi
@@ -61,7 +61,23 @@ const bi = Bi.fromNodes([
     [3, 1],
 ])
 
+const solve = <A, B>(bi: Bi<A, B>, length = 0): number[] => {
+    const [head, ...tail] = bi.a2b
+    console.log(length, bi)
+    if (!head) return [length]
+    if (!head[1].length) return [length]
+    return head[1].flatMap(b =>
+        solve(
+            bi
+                .delA(head[0])
+                .delB(b),
+            length + 1,
+        )
+    )
+}
+
 console.log(
-    bi,
-    bi.delA(1),
+    //bi,
+    //bi.delA(1),
 )
+console.log(solve(bi))
