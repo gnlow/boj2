@@ -12,6 +12,7 @@ const possible =
 (n: number) =>
 (queens: Coord[]): Coord[][] =>
     Array(n*n).fill(undefined).flatMap((_, i) => {
+        console.log(queens.length)
         //console.log(n, queens)
         if (queens.length == n) return [queens]
         const x = i % n
@@ -21,6 +22,6 @@ const possible =
         }
         return []
     })
-console.log(new Set(possible(4)([]).map(x => x.sort().map(String).join(","))))
+//console.log(new Set(possible(4)([]).map(x => x.sort().map(String).join(","))))
 
-console.log(new Set(possible(6)([]).map(x => x.sort().map(String).join(","))).size)
+console.log(new Set(possible(7)([]).map(x => x.sort().map(String).join(","))).size)
