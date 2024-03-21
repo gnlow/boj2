@@ -1,7 +1,7 @@
 const input =
-require("fs").readFileSync(0).toString();
+//require("fs").readFileSync(0).toString();
 `5
-4 1 5 2 3
+4 1 5 2 3 8
 5
 1 3 7 9 5`
 
@@ -10,15 +10,21 @@ const [_n, as, _m, bs] = input.split("\n").map(x => x.split(" "))
 as.sort((a, b) => a - b)
 
 const include =
-    ns =>
-    target => Number(
-        ns.length == 1
-            ? ns[0] == target
-            : target < ns[Math.floor(ns.length/2)]
-                ? include(ns.slice(0, ns.length/2))(target)
-                : include(ns.slice(ns.length/2))(target)
-    )
+    (start, end) => 
+    target => {
+        const length = end - start
+        const center = Math.floor(length/2+start)
+        console.log(as.slice(start, end), target)
 
-console.log(bs.map(b => include(as)(b)).join("\n"))
+        return Number(
+            length == 1
+                ? as[start] == target
+                : target < as[center]
+                    ? include(start, center)(target)
+                    : include(center, end)(target)
+        )
+    }
+
+console.log(bs.map(b => include(0, as.length)(b)).join("\n"))
 
 //console.log(as, bs)
