@@ -1,7 +1,7 @@
 const input =
 //require("fs").readFileSync(0).toString();
 `5
-4 1 5 2 3 8
+4 1 5 2 3 7 10
 5
 1 3 7 9 5`
 
@@ -13,8 +13,10 @@ const include =
     (start, end) => 
     target => {
         const length = end - start
-        const center = Math.floor(length/2+start)
-        console.log(as.slice(start, end), target)
+        const center = Math.floor((start+end)/2)
+        console.log(start, center, end)
+        console.log(as.slice(start, end), target, as[center])
+        console.log(target, (target < as[center] ? "<" : ">="), as[center])
 
         return Number(
             length == 1
