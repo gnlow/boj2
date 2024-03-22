@@ -21,8 +21,7 @@ int main(void) {
     for (int i=0; i<n; i++) {
         string a;
         cin >> a;
-        if (s.find(a) == s.end())
-            s.insert(a);
+        s.insert(a);
     }
 
     std::set<string>::iterator it;
