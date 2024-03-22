@@ -1,17 +1,14 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <set>
 
 using namespace std;
 
-template <typename T>
-bool include(vector<T> v, T x) {
-    for (int i=0; i<v.size(); i++) {
-        if (x == v[i]) {
-            return true;
-        }
-    }
-    return false;
+bool cmp(string a, string b) {
+    return a.size() == b.size()
+        ? a < b
+        : a.size() < b.size();
 }
 
 int main(void) {
@@ -19,23 +16,18 @@ int main(void) {
     int n;
     cin >> n;
     
-    vector<string> v;
+    set<string, decltype(&cmp)> s(cmp);
 
     for (int i=0; i<n; i++) {
         string a;
         cin >> a;
-        if (!include(v, a))
-            v.push_back(a);
+        if (s.find(a) == s.end())
+            s.insert(a);
     }
 
-    sort(v.begin(), v.end(), [](string a, string b) {
-        return a.size() == b.size()
-            ? a < b
-            : a.size() < b.size();
-    });
-
-    for (int i=0; i<v.size(); i++) {
-        cout << v[i] << "\n";
+    std::set<string>::iterator it;
+    for (it = s.begin(); it != s.end(); ++it) {
+        cout << *it << "\n";
     }
 
     return 0;
