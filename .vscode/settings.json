@@ -3,6 +3,12 @@
         "*.mf": "mp",
         "iostream": "cpp",
         "vector": "cpp",
-        "string_view": "cpp"
-    }
+        "string_view": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "initializer_list": "cpp"
+    },
+    "cmake.configureOnOpen": false
 }
