@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.mf": "mp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "vector": "cpp"
     }
 }
