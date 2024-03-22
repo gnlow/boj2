@@ -1,25 +1,28 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
 
 using namespace std;
 
 int main(void) {
+    ios_base::sync_with_stdio(0);
     int n;
     cin >> n;
     
-    vector<int> v;
+    int v[10000];
+
+    for (int i=0; i<10000; i++) {
+        v[i] = 0;
+    }
 
     for (int i=0; i<n; i++) {
         int a;
         cin >> a;
-        v.push_back(a);
+        v[a-1]++;
     }
 
-    sort(v.begin(), v.end());
-
-    for (int i=0; i<n; i++) {
-        cout << v.at(i) << "\n";
+    for (int i=0; i<10000; i++) {
+        for (int j=0; j<v[i]; j++) {
+            cout << i+1 << "\n";
+        }
     }
 
     return 0;
