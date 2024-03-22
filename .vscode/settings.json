@@ -2,6 +2,7 @@
     "files.associations": {
         "*.mf": "mp",
         "iostream": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "string_view": "cpp"
     }
 }
