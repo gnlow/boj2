@@ -14,10 +14,6 @@ int upper_bound(F f, int targetY, int minX, int maxX) {
     int center = (maxX + minX) / 2;
 
     int y = f(center);
-    cout
-        << center
-        << " "
-        << y;
 
     if (range == 0) {
         if (y < targetY) return y;
@@ -39,8 +35,8 @@ int wood(vector<int> as, int length, int h) {
 }
 
 int main(void) {
-    //ios_base::sync_with_stdio(0);
-    //cin.tie(NULL);
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
 
     int n, m;
     cin >> n >> m;
@@ -48,15 +44,14 @@ int main(void) {
     vector<int> trees;
 
     for (int i=0; i<4; i++) {
-        //int a;
-        //cin >> a;
-        cout << "v" << "\n";
-        //trees[i] = a;
+        int a;
+        cin >> a;
+        trees.push_back(a);
     }
 
     sort(trees.begin(), trees.end());
     
-    // cout << trees[n-1];
+    cout << trees[n-1];
 
     cout << upper_bound([trees, n](int h) {
         return wood(trees, n, h);
