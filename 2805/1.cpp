@@ -39,18 +39,19 @@ int wood(vector<int> as, int length, int h) {
 }
 
 int main(void) {
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
+    //ios_base::sync_with_stdio(0);
+    //cin.tie(NULL);
 
     int n, m;
     cin >> n >> m;
     
     vector<int> trees;
 
-    for (int i=0; i<n; i++) {
-        int a;
-        cin >> a;
-        trees[i] = a;
+    for (int i=0; i<4; i++) {
+        //int a;
+        //cin >> a;
+        cout << "v" << "\n";
+        //trees[i] = a;
     }
 
     sort(trees.begin(), trees.end());
