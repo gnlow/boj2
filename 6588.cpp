@@ -3,11 +3,11 @@
 
 using namespace std;
 
+int ns[(int) 1e6 + 1];
+
 int main(void) {
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
-
-    int ns[(int) 1e6 + 1];
 
     for (int i=2; i<=1000000; i++) {
         ns[i] = 1;
@@ -38,7 +38,7 @@ int main(void) {
                     << " = "
                     << p
                     << " + "
-                    << a - p
+                    << a - p << '\n';
                 ;
                 break;
             }
