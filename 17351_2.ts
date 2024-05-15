@@ -42,7 +42,7 @@ class Table {
         return new Table(
             str .trim()
                 .split("\n")
-                .map(x => x.split(""))
+                .map(x => x.trim().split(""))
         )
     }
     toString() {
@@ -98,7 +98,12 @@ class Pointer {
         const v = [this.left, this.up]
             .filter(x => x.code + 1 == this.code)
             .map(x => x.state + 1)
-        return Math.max(...v, -1)
+        return Math.max(
+            ...v,
+            this.code == 0
+                ? 0
+                : -1,
+            )
     }
     @cache()
     get count(): number {
@@ -119,10 +124,10 @@ class Pointer {
 
 /*
 const table = Table.parse(`
-MOLA
-AMOL
-FATI
-MOLA
+ZZMZ
+ZMMO
+ZZZL
+ZZZA
 `)
 console.log(table.map(p => p.state+"").toString(),"\n")
 console.log(table.map(p => p.count+"").toString())
