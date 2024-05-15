@@ -106,6 +106,24 @@ class Pointer {
             )
     }
     @cache()
+    get v(): number {
+        // console.log(this.x, this.y)
+        if (!this.value) return 0
+        const v = [this.left, this.up]
+            .map(x =>
+                x.v + (
+                    x.v % str.length == x.code
+                    && (
+                        this.code - x.code == 1
+                        || this.code == 0
+                    )
+                        ? 1
+                        : 0
+                )
+            )
+        return Math.max(...v)
+    }
+    @cache()
     get count(): number {
         // console.log(this.x, this.y)
         if (!this.value) return 0
@@ -122,22 +140,39 @@ class Pointer {
     }
 }
 
-/*
+
+{`MMZZZ
+MOLAZ
+ZLAZZ
+ZAZZZ
+MOLAZ`}
+
 const table = Table.parse(`
-ZZMZ
-ZMMO
-ZZZL
-ZZZA
+MMZZZ
+MOLAZ
+ZLAZZ
+ZAZZZ
+MOLAZ
 `)
 console.log(table.map(p => p.state+"").toString(),"\n")
-console.log(table.map(p => p.count+"").toString())
+console.log(table.map(p => p.count+"").toString(),"\n")
+console.log(table.map(p => p.v+"").toString(),"\n")
 
 console.log(table.end.count)
-*/
+console.log(Math.floor((table.end.v + 1)/str.length))
+
 
 /*
 const table = Table.parse(
     (require("fs").readFileSync(0)+"").substring(1)
 )
-console.log(table.end.count)
+console.log(Math.floor((table.end.v + 1)/str.length))
+*/
+
+/*
+4
+MOLA
+OLAM
+LAMO
+AZZL
 */
