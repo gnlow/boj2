@@ -148,11 +148,10 @@ ZAZZZ
 MOLAZ`}
 
 const table = Table.parse(`
-MMZZZ
-MOLAZ
-ZLAZZ
-ZAZZZ
-MOLAZ
+MOLAM
+____O
+____L
+____A
 `)
 console.log(table.map(p => p.state+"").toString(),"\n")
 console.log(table.map(p => p.count+"").toString(),"\n")
@@ -164,9 +163,12 @@ console.log(Math.floor((table.end.v + 1)/str.length))
 
 /*
 const table = Table.parse(
-    (require("fs").readFileSync(0)+"").substring(1)
+    (require("fs").readFileSync(0)+"").trim().substring(1)
 )
-console.log(Math.floor((table.end.v + 1)/str.length))
+console.log(Math.min(
+    table.end.count,
+    Math.floor((table.end.v + 1)/str.length),
+))
 */
 
 /*
