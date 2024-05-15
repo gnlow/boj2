@@ -107,7 +107,7 @@ class Pointer {
         const v = [this.left, this.up]
             .map(x =>
                 x.count + (
-                    (x.state + 1 == str.length)
+                    (this.state + 1 == str.length)
                         ? 1
                         : 0
                 )
@@ -117,12 +117,12 @@ class Pointer {
 }
 
 const table = Table.parse(`
-SUNRIN
-AMUMAL
-STRING
-MOLAAA
-KKKMOO
-OOOOLA
+MOLAMO
+OLAAOL
+LAMAAA
+AAOLAM
+MOLAMO
+LLLLOA
 `)
 console.log(table.map(p => p.state+"").toString())
 console.log(table.map(p => p.count+"").toString())
