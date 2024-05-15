@@ -54,7 +54,10 @@ const target = "MOLA"
 
 const scan =
 ({ right, down, value }: Pointer) =>
-(cnt: number): Pointer[] => {
+(cnt: number): {
+    start: Pointer,
+    end: Pointer,
+}[] => {
     if (cnt == 0 && value != target[0]) {
         return []
     }
@@ -77,7 +80,5 @@ AMOL
 FATI
 MOLA`
 
-console.log(
-    scan(Table.fromString(str).start)(0)
-    .map(({x, y}) => ({x, y}))
-)
+const ps = scan(Table.fromString(str).start)(0)
+
