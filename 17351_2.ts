@@ -108,6 +108,7 @@ class Pointer {
             .map(x =>
                 x.count + (
                     (this.state + 1 == str.length)
+                    && (x.state + 2 == str.length)
                         ? 1
                         : 0
                 )
@@ -116,15 +117,22 @@ class Pointer {
     }
 }
 
+/*
 const table = Table.parse(`
-MOLAMO
-OLAAOL
-LAMAAA
-AAOLAM
-MOLAMO
-LLLLOA
+MOLA
+AMOL
+FATI
+MOLA
 `)
-console.log(table.map(p => p.state+"").toString())
+console.log(table.map(p => p.state+"").toString(),"\n")
 console.log(table.map(p => p.count+"").toString())
 
-//console.log(table.end.count)
+console.log(table.end.count)
+*/
+
+/*
+const table = Table.parse(
+    (require("fs").readFileSync(0)+"").substring(1)
+)
+console.log(table.end.count)
+*/
