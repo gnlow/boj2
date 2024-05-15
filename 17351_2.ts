@@ -1,3 +1,23 @@
+const cache =
+<K extends unknown[]>
+(keyStringifier: (...key: K) => string = (...args) => String(args)) =>
+(
+    f: (...args: unknown[]) => unknown,
+    _context:
+        | ClassGetterDecoratorContext
+        | ClassMethodDecoratorContext
+) => {
+    const map = new Map()
+    return function(this: { id: string }, ...args: K) {
+        const key = this.id + ";" + keyStringifier(...args)
+        if (map.has(key)) return map.get(key)
+
+        const result = f.call(this, ...args)
+        map.set(key, result)
+        return result
+    }
+}
+
 class Table {
     data
     constructor(data: string[][]) {
@@ -13,12 +33,25 @@ class Table {
             this.data.length - 1,
         )
     }
+    map(f: (pointer: Pointer) => string) {
+        return new Table(this.data.map((row, y) =>
+            row.map((_, x) => f(this.getPointer(x, y)))
+        ))
+    }
     static parse(str: string) {
         return new Table(
             str .trim()
                 .split("\n")
                 .map(x => x.split(""))
         )
+    }
+    toString() {
+        return this.data
+            .map(row => row.map(x => x.padStart(3, " ")).join(""))
+            .join("\n")
+    }
+    getPointer(x: number, y: number) {
+        return new Pointer(this, x, y)
     }
     get(x: number, y: number) {
         return this.data[y]?.[x]
@@ -40,6 +73,7 @@ class Pointer {
         this.x = x
         this.y = y
     }
+    get id() { return this.x + "," + this.y }
     get value() {
         return this.table.get(this.x, this.y)
     }
@@ -58,15 +92,17 @@ class Pointer {
     get code(): number {
         return str.indexOf(this.value)
     }
+    @cache()
     get state(): number {
         if (!this.value) return -1
         const v = [this.left, this.up]
             .filter(x => x.code + 1 == this.code)
             .map(x => x.state + 1)
-        return Math.max(...v)
+        return Math.max(...v, -1)
     }
+    @cache()
     get count(): number {
-        console.log(this.x, this.y)
+        // console.log(this.x, this.y)
         if (!this.value) return 0
         const v = [this.left, this.up]
             .map(x =>
@@ -88,5 +124,7 @@ MOLAAA
 KKKMOO
 OOOOLA
 `)
+console.log(table.map(p => p.state+"").toString())
+console.log(table.map(p => p.count+"").toString())
 
-console.log(table.end.count)
+//console.log(table.end.count)
